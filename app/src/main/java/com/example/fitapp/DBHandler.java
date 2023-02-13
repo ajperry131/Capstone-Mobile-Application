@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -81,6 +82,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // this method is use to add new user to the sqlite database.
     public boolean addUser(String username, String password, String email, String phone) {
+        if (username == null || password == null || email == null || phone == null)
+            return false;
 
         // get the writable sqlite database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -88,13 +91,18 @@ public class DBHandler extends SQLiteOpenHelper {
         // values will store values to be inserted into user table
         ContentValues values = new ContentValues();
 
-        values.put("username", username.toLowerCase());
-        values.put("password", password);
-        values.put("email", email.toLowerCase());
-        values.put("phone", phone);
+        String encryptedUsername = AESUtil.encrypt(username.toLowerCase());
+        String encryptedPassword = AESUtil.encrypt(password);
+        String encryptedEmail = AESUtil.encrypt(email.toLowerCase());
+        String encryptedPhone = AESUtil.encrypt(phone.replaceAll("[^0-9]",""));
+
+        values.put("username", encryptedUsername);
+        values.put("password", encryptedPassword);
+        values.put("email", encryptedEmail);
+        values.put("phone", encryptedPhone);
 
         // insert the values into the user table if the account does not exist
-        if (getUserBySignUp(username, email, phone) == null) {
+        if (getUserBySignUp(encryptedUsername, encryptedEmail, encryptedPhone) == null) {
             db.insert("user", null, values);
             db.close();
             return true;
@@ -108,16 +116,18 @@ public class DBHandler extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public User getUserByLogin(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username=? and password=?", new String[] {username.toLowerCase(), password});
+        String encryptedUsername = AESUtil.encrypt(username.toLowerCase());
+        String encryptedPassword = AESUtil.encrypt(password);
+        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username=? and password=?", new String[] {encryptedUsername, encryptedPassword});
 
         try {
             if (cursor != null && cursor.moveToFirst()) {
                 User user = new User();
                 user.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
-                user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
-                user.setEmail(cursor.getString(cursor.getColumnIndex("email")));
-                user.setPhone(cursor.getString(cursor.getColumnIndex("phone")));
+                user.setUsername(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("username"))));
+                user.setPassword(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("password"))));
+                user.setEmail(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("email"))));
+                user.setPhone(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("phone"))));
 
                 cursor.close();
 
@@ -133,16 +143,19 @@ public class DBHandler extends SQLiteOpenHelper {
     @SuppressLint("Range")
     private User getUserBySignUp(String username, String email, String phone) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username=? or email=? or phone=?", new String[] {username.toLowerCase(), email.toLowerCase(), phone});
+        String encryptedUsername = AESUtil.encrypt(username.toLowerCase());
+        String encryptedEmail = AESUtil.encrypt(email.toLowerCase());
+        String encryptedPhone = AESUtil.encrypt(phone.replaceAll("[^0-9]",""));
+        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username=? or email=? or phone=?", new String[] {encryptedUsername, encryptedEmail, encryptedPhone});
 
         try {
             if (cursor != null && cursor.moveToFirst()) {
                 User user = new User();
                 user.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
-                user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
-                user.setEmail(cursor.getString(cursor.getColumnIndex("email")));
-                user.setPhone(cursor.getString(cursor.getColumnIndex("phone")));
+                user.setUsername(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("username"))));
+                user.setPassword(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("password"))));
+                user.setEmail(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("email"))));
+                user.setPhone(AESUtil.decrypt(cursor.getString(cursor.getColumnIndex("phone"))));
 
                 cursor.close();
 
@@ -153,6 +166,31 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return null;
+    }
+
+    public boolean updateUserById(int id, String username, String password, String email, String phone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            String encryptedUsername = AESUtil.encrypt(username.toLowerCase());
+            String encryptedPassword = AESUtil.encrypt(password);
+            String encryptedEmail = AESUtil.encrypt(email.toLowerCase());
+            String encryptedPhone = AESUtil.encrypt(phone.replaceAll("[^0-9]",""));
+
+            values.put("username", encryptedUsername);
+            values.put("password", encryptedPassword);
+            values.put("email", encryptedEmail);
+            values.put("phone", encryptedPhone);
+
+            db.update("user", values, "id=?", new String[]{String.valueOf(id)});
+            db.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        db.close();
+        return false;
     }
 
     // this method is use to add new workout to the sqlite database.

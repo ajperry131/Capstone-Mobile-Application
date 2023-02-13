@@ -3,10 +3,12 @@ package com.example.fitapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -44,9 +46,32 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                //do not create account if user failed to enter the same password into both password boxes
-                if (!password.equals(confirmPassword)) {
-                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                //set errors for each field if the information is not valid
+                if (!Validator.isValidUsername(username))
+                    edtUsername.setError("Must be 6-20 characters\nunderscores are allowed\nNo spaces allowed\nNo symbols allowed");
+                else edtUsername.setError(null);
+                if (!Validator.isValidPassword(password))
+                    edtPassword.setError("Must be 8-30 characters\nMust contain at least one uppercase letter\nMust contain at least one lowercase letter\nMust contain one symbol: @#$%^&-+=()\nUnderscores are allowed");
+                else edtPassword.setError(null);
+                if (!confirmPassword.equals(password))
+                    edtConfirmPassword.setError("Confirm password does not match password");
+                else edtConfirmPassword.setError(null);
+                if (!Validator.isValidEmail(email))
+                    edtEmail.setError("Must follow a format similar to:\njohnsmith@mail.com");
+                else edtEmail.setError(null);
+                if (!Validator.isValidPhone(phone))
+                    edtPhone.setError("Must follow a format similar to:\n1234567890\n123-456-7890\n(123)456-7890");
+                else
+                    edtPhone.setError(null);
+
+
+                //let the user know if any information is invalid
+                if (edtUsername.getError() != null
+                        || edtPassword.getError() != null
+                        || edtConfirmPassword.getError() != null
+                        || edtEmail.getError() != null
+                        || edtPhone.getError() != null) {
+                    Toast.makeText(SignUpActivity.this, "You entered invalid information", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

@@ -16,6 +16,18 @@
         android:theme="@style/Theme.FitApp"
         tools:targetApi="31">
         <activity
+            android:name=".ChangePhoneActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".ChangeEmailActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
