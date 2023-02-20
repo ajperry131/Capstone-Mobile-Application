@@ -5,12 +5,37 @@
     android:layout_height="match_parent"
     tools:context=".FoodTrackerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/datePickerButton"
+            style="?android:spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="JAN 01 2023"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <ListView
+            android:id="@+id/listViewMeals"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="26sp"
-        android:text="Food Tracker" />
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_baseline_add_24"
+        android:contentDescription="submit"
+        android:layout_margin="16dp" />
+
 
 </FrameLayout>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChangeEmailActivity">
+    tools:context=".AddFoodFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,27 +14,38 @@
         tools:layout_editor_absoluteY="1dp">
 
         <EditText
-            android:id="@+id/editTextNewEmail"
+            android:id="@+id/editTextMealName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="New email address"
-            android:inputType="textEmailAddress"
-            android:text="" />
+            android:inputType="textPersonName"
+            android:hint="Meal Name" />
 
         <EditText
-            android:id="@+id/editTextConfirmNewEmail"
+            android:id="@+id/editTextMealCalories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Confirm new email address"
-            android:inputType="textEmailAddress"
-            android:text="" />
+            android:hint="Meal Calories"
+            android:inputType="number"
+            android:minHeight="48dp" />
 
-        <Button
-            android:id="@+id/btnChangeEmail"
+        <EditText
+            android:id="@+id/editTextMealProtein"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change Email" />
+            android:ems="10"
+            android:hint="Meal Protein"
+            android:inputType="number"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/btnMealSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save" />
+
+
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
