@@ -38,7 +38,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
 
                 if (!Validator.isValidPassword(newPassword))
-                    edtNewPassword.setError("Must be 8-30 characters\nMust contain at least one uppercase letter\nMust contain at least one lowercase letter\nMust contain one symbol: @#$%^&-+=()\nUnderscores are allowed");
+                    edtNewPassword.setError("Must be 8-30 characters\nMust contain at least one uppercase letter\nMust contain at least one lowercase letter\nMust contain at least one number\nMust contain one symbol: @#$%^&-+=()\nUnderscores are allowed");
                 else
                     edtNewPassword.setError(null);
                 if (!confirmNewPassword.equals(newPassword))

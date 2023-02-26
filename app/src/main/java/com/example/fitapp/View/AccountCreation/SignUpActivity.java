@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
                     edtUsername.setError("Must be 6-20 characters\nunderscores are allowed\nNo spaces allowed\nNo symbols allowed");
                 else edtUsername.setError(null);
                 if (!Validator.isValidPassword(password))
-                    edtPassword.setError("Must be 8-30 characters\nMust contain at least one uppercase letter\nMust contain at least one lowercase letter\nMust contain one symbol: @#$%^&-+=()\nUnderscores are allowed");
+                    edtPassword.setError("Must be 8-30 characters\nMust contain at least one uppercase letter\nMust contain at least one lowercase letter\nMust contain at least one number\nMust contain one symbol: @#$%^&-+=()\nUnderscores are allowed");
                 else edtPassword.setError(null);
                 if (!confirmPassword.equals(password))
                     edtConfirmPassword.setError("Confirm password does not match password");
