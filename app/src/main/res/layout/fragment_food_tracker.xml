@@ -1,41 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoodTrackerFragment">
+    tools:context=".View.FoodTracker.FoodTrackerFragment">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/datePickerButton"
+        style="?android:spinnerStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="JAN 01 2023"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/datePickerButton"
-            style="?android:spinnerStyle"
-            android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMeals"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePickerButton"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"/>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/back"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textViewTotalMealCalories"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="JAN 01 2023"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:layout_marginTop="10dp"/>
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:text="000"
+            android:textSize="30sp" />
 
-        <ListView
-            android:id="@+id/listViewMeals"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/unitCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/textViewTotalMealCalories"
+            android:text="kc"
+            android:textSize="30sp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textViewTotalMealProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/unitCalories"
+            android:text="00"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/unitGrams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/textViewTotalMealProtein"
+            android:text="g"
+            android:textSize="30sp" />
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_baseline_add_24"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:contentDescription="submit"
-        android:layout_margin="16dp" />
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

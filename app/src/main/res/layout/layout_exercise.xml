@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp">
+    android:maxWidth="450dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:id="@+id/container">
+
+    <ImageView
+        android:id="@+id/imageViewExerciseGif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewExerciseName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:maxLines="4"
+        android:text="Workout Names"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/textViewExerciseType"
+        app:layout_constraintStart_toEndOf="@+id/imageViewExerciseGif"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textViewExerciseType"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:maxWidth="120dp"
+        android:background="@drawable/back"
+        android:text="Type"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="10sp"
+        android:textSize="20sp"
+        android:maxLines="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageViewExerciseGif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:maxWidth="100dp"
-            android:maxHeight="100dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher_background"
-            />
-
-        <TextView
-            android:id="@+id/textViewExerciseName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Workout Name"
-            android:gravity="center"
-            android:paddingLeft="15dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="·"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/textViewExerciseType"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Type"
-            android:gravity="center"/>
-
-
-    </TableRow>
-</TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

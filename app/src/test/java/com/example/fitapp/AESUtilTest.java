@@ -2,6 +2,8 @@ package com.example.fitapp;
 
 import static org.junit.Assert.*;
 
+import com.example.fitapp.Util.AESUtil;
+
 import org.junit.Test;
 
 import java.security.InvalidAlgorithmParameterException;
